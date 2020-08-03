@@ -1,0 +1,27 @@
+#
+#
+#mybatis-plus:
+#  mapper-locations: classpath*:/mapper/**/*.xml  #classpath*:/  引用得依赖classpath都寻找
+#
+#  global-config:
+#    db-config:
+#      id-type: auto    #auto increase
+#
+#server:
+#  port: 7000
+#
+#spring:
+#  datasource:
+#    username: root
+#    password: root
+#    url: jdbc:mysql://192.168.31.117:3306/gulimall_sms
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+#  application:
+#    name: mall-coupon
+#  #spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848
+#
+#
