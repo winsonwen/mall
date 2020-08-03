@@ -205,7 +205,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         //1.当前分组只能关联自己所属的分类里面的所有属性
 
         //1.当前分组只能关联别的分组没有引用的属性
-
+        return null;
     }
 
 
