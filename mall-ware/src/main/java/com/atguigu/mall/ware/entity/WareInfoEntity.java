@@ -1,0 +1,40 @@
+package com.atguigu.mall.ware.entity;
+
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.io.Serializable;
+import java.util.Date;
+import lombok.Data;
+
+/**
+ * 仓库信息
+ * 
+ * @author winson
+ * @email winsonwen4@gmail.com
+ * @date 2020-07-20 21:46:31
+ */
+@Data
+@TableName("wms_ware_info")
+public class WareInfoEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * id
+	 */
+	@TableId
+	private Long id;
+	/**
+	 * 仓库名
+	 */
+	private String name;
+	/**
+	 * 仓库地址
+	 */
+	private String address;
+	/**
+	 * 区域编码
+	 */
+	private String areacode;
+
+}
