@@ -5,11 +5,7 @@ import java.util.Map;
 
 import com.atguigu.mall.product.vo.SpuSaveVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.atguigu.mall.product.entity.SpuInfoEntity;
 import com.atguigu.mall.product.service.SpuInfoService;
@@ -30,6 +26,18 @@ import com.atguigu.common.utils.R;
 public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
+
+
+    // https://easydoc.xyz/s/78237135/ZUqEdvA4/DhOtFr4A   /product/spuinfo/{spuId}/up
+    @PostMapping("/{spuId}/up")
+    public R spuPp(@PathVariable("spuId") Long spuId){
+        spuInfoService.up(spuId);
+        return R.ok();
+    }
+
+
+
+
 
     /**
      * 列表
