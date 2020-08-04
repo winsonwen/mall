@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.atguigu.mall.product.entity.AttrEntity;
+import com.atguigu.mall.product.service.AttrAttrgroupRelationService;
 import com.atguigu.mall.product.service.AttrService;
 import com.atguigu.mall.product.service.CategoryService;
 import com.atguigu.mall.product.vo.AttrGroupRelationVo;
+import com.atguigu.mall.product.vo.AttrGroupWithAttrsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +37,25 @@ public class   AttrGroupController {
     private CategoryService categoryService;
     @Autowired
     AttrService attrService;
+    @Autowired
+    AttrAttrgroupRelationService relationService;
+
+    //https://easydoc.xyz/s/78237135/ZUqEdvA4/VhgnaedC  /product/attrgroup/attr/relation
+    @PostMapping("/attr/relation")
+    public R addRelation(@RequestBody List<AttrGroupRelationVo> vos){
+        relationService.saveBatch( vos);
+        return R.ok();
+    }
+
+    // https://easydoc.xyz/s/78237135/ZUqEdvA4/6JM6txHf /product/attrgroup/{catelogId}/withattr
+    @GetMapping("/{catelogId}/withattr")
+    public R getAttrGroupWithAttrs(@PathVariable("catelogId") Long cateLogId) {
+        // 1 查出当前分类下所有的属性分组
+        // 2 查出每个属性分组的所有属性
+        List<AttrGroupWithAttrsVo> vos = attrGroupService.getAttrGroupWithAttrsByCatelogId(cateLogId);
+        return R.ok().put("data", vos);
+    }
+
 
     // https://easydoc.xyz/s/78237135/ZUqEdvA4/LnjzZHPj   /product/attrgroup/{attrgroupId}/attr/relation
     @GetMapping("/{attrgroupId}/attr/relation")

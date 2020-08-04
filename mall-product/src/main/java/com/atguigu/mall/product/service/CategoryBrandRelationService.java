@@ -1,10 +1,12 @@
 package com.atguigu.mall.product.service;
 
+import com.atguigu.mall.product.entity.BrandEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.atguigu.common.utils.PageUtils;
 import com.atguigu.mall.product.entity.CategoryBrandRelationEntity;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,5 +26,6 @@ public interface CategoryBrandRelationService extends IService<CategoryBrandRela
 
     void updateCategory(@Param("catId") Long catId, @Param("name") String name);
 
+    List<BrandEntity> getBrandsByCatId(Long catId);
 }
 

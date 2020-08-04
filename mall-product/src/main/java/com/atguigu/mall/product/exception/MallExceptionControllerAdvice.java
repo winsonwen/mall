@@ -39,7 +39,7 @@ public class MallExceptionControllerAdvice {
     //处理所有异常
     @ExceptionHandler(Throwable.class)
     public R handleException(Throwable throwable){
-
+        System.out.println(throwable.toString());
         return R.error(BizCodeEnume.UNKNOW_EXCEPTION.getCode(),BizCodeEnume.UNKNOW_EXCEPTION.getMsg());
     }
 }
