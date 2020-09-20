@@ -1,9 +1,11 @@
 package com.atguigu.mall.ware.service;
 
+import com.atguigu.mall.ware.vo.ShippingFeeVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.atguigu.common.utils.PageUtils;
 import com.atguigu.mall.ware.entity.WareInfoEntity;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 /**
@@ -16,5 +18,7 @@ import java.util.Map;
 public interface WareInfoService extends IService<WareInfoEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    ShippingFeeVo shippingFee(Long addrId);
 }
 

@@ -17,7 +17,7 @@
     </resultMap>
     <select id="selectSearchAttrIds" resultType="java.lang.Long">
         SELECT attr_id FROM `pms_attr` WHERE attr_id IN
-        <foreach collection="attrIds" item="id" open="(" close=")" separator=",">#{id}</foreach> AND search_type = 1
+        <foreach collection="attrIds" item="id" open="(" close=")" separator=",">#{id}</foreach> attr_type=1
 
     </select>
 

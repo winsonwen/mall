@@ -2,8 +2,9 @@ package com.atguigu.mall.product.service.impl;
 
 import com.atguigu.mall.product.entity.AttrEntity;
 import com.atguigu.mall.product.service.AttrService;
-import com.atguigu.mall.product.vo.AttrGroupRelationVo;
 import com.atguigu.mall.product.vo.AttrGroupWithAttrsVo;
+import com.atguigu.mall.product.vo.SkuItemVo;
+import com.atguigu.mall.product.vo.SpuItemAttrGroupVo;
 import com.mysql.cj.util.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,15 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         }).collect(Collectors.toList());
 
         return collect;
+
+    }
+
+    @Override
+    public List<SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long spuId, Long catalogId) {
+        // attr group information and value refer to current spu
+        AttrGroupDao baseMapper = this.getBaseMapper();
+        List<SpuItemAttrGroupVo> vos = baseMapper.getAttrGroupWithAttrsBySpuId(spuId,catalogId);
+        return vos;
 
     }
 

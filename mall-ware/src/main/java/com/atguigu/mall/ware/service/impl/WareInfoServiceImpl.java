@@ -1,7 +1,14 @@
 package com.atguigu.mall.ware.service.impl;
 
+import com.alibaba.fastjson.TypeReference;
+import com.atguigu.common.utils.R;
+import com.atguigu.mall.ware.feign.MemberFeignService;
+import com.atguigu.mall.ware.vo.MemberAddressVo;
+import com.atguigu.mall.ware.vo.ShippingFeeVo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -19,8 +26,8 @@ import javax.annotation.Resource;
 @Service("wareInfoService")
 public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity> implements WareInfoService {
 
-//    @Resource
-//    private MemberFeign memberFeign;
+    @Resource
+    private MemberFeignService memberFeign;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -38,6 +45,24 @@ public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public ShippingFeeVo shippingFee(Long addrId) {
+
+        ShippingFeeVo shippingFeeVo = new ShippingFeeVo();
+        R r = memberFeign.addrInfo(addrId);
+        MemberAddressVo data = r.getData("memberReceiveAddress",new TypeReference<MemberAddressVo>() {});
+        //TODO calculate shipping fee
+        if(data!=null){
+            String phone = data.getPhone();
+            String substring = phone.substring(phone.length() - 1, phone.length());
+
+            shippingFeeVo.setShippingFee(new BigDecimal(substring));
+            shippingFeeVo.setAddress(data);
+            return shippingFeeVo;
+        }
+        return null;
     }
 
 //    @Override

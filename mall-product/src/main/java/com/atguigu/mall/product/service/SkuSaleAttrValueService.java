@@ -1,9 +1,11 @@
 package com.atguigu.mall.product.service;
 
+import com.atguigu.mall.product.vo.SkuItemSaleAttrVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.atguigu.common.utils.PageUtils;
 import com.atguigu.mall.product.entity.SkuSaleAttrValueEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,6 +17,11 @@ import java.util.Map;
  */
 public interface SkuSaleAttrValueService extends IService<SkuSaleAttrValueEntity> {
 
+
+    List<SkuItemSaleAttrVo> getSaleAttrsBySpuId(Long spuId);
+
     PageUtils queryPage(Map<String, Object> params);
+
+    List<String> getSkuSaleAttrValuesAsStringList(Long skuId);
 }
 

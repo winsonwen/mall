@@ -118,6 +118,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
             return valueEntity;
         }).collect(Collectors.toList());
+        System.out.println("22222222" + collect.toString());
         attrValueService.saveProductAttr(collect);
 
         //5、保存spu的积分信息；gulimall_sms->sms_spu_bounds
@@ -176,6 +177,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                     return attrValueEntity;
                 }).collect(Collectors.toList());
                 //5.3）、sku的销售属性信息：pms_sku_sale_attr_value
+
                 skuSaleAttrValueService.saveBatch(skuSaleAttrValueEntities);
 
                 // //5.4）、sku的优惠、满减等信息；gulimall_sms->sms_sku_ladder\sms_sku_full_reduction\sms_member_price
@@ -249,19 +251,23 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         // TODO 4 查询当前 sku 的所有可以用来被检索的规格属性
         List<ProductAttrValueEntity> baseAttrs = attrValueService.baseAttrlistforspu(spuId);
         List<Long> attrIds = baseAttrs.stream().map(attr -> attr.getAttrId()).collect(Collectors.toList());
+        System.out.println("333333" + attrIds.toString());
 
         List<Long> searchAttrIds = attrService.selectSearchAttrIds(attrIds);
 
         Set<Long> idSet = new HashSet<>(searchAttrIds);
 
-        List<SkuEsModel.Attrs> attrsList = new ArrayList<>();
-        baseAttrs.stream().filter(o -> idSet.contains(o.getAttrId()))
+        List<SkuEsModel.Attrs> attrsList;
+        attrsList = baseAttrs.stream().filter(o -> idSet.contains(o.getAttrId()))
                 .map(o -> {
+
                     SkuEsModel.Attrs attrs1 = new SkuEsModel.Attrs();
                     BeanUtils.copyProperties(o, attrs1);
+                    System.out.println("???" + attrs1);
+                    System.out.println("---" + o);
                     return attrs1;
                 }).collect(Collectors.toList());
-
+        System.out.println("444444"+ attrsList.toString());
         // TODO 1 发送远程调用 在仓库系统中查询是否有库存
         Map<Long, Boolean> stockMap = null;
         try {
@@ -309,6 +315,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                     return esSkuModel;
                 }).collect(Collectors.toList());
 
+        System.out.println("1111111111111111" + upProducts.toString());
         // TODO 5 将数据发送给 es 进行保存 mall-search
         /**
          * Feign 调用流程
@@ -326,6 +333,15 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             // 上架失败
             // TODO 7 重复调用/幂等性问题：重试机制
         }
+    }
+
+    @Override
+    public SpuInfoEntity getSpuInfoBySkuId(Long skuId) {
+        SkuInfoEntity byId = skuInfoService.getById(skuId);
+        Long spuId = byId.getSpuId();
+        SpuInfoEntity spuInfoEntity = getById(spuId);
+        return spuInfoEntity;
+
     }
 }
 

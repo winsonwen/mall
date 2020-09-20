@@ -3,24 +3,74 @@ package com.atguigu.mall.product;
 //import com.aliyun.oss.OSS;
 //import com.aliyun.oss.OSSClient;
 //import com.aliyun.oss.OSSClientBuilder;
+import com.atguigu.mall.product.config.MyRedissonConfig;
+import com.atguigu.mall.product.dao.AttrGroupDao;
+import com.atguigu.mall.product.dao.SkuSaleAttrValueDao;
 import com.atguigu.mall.product.entity.BrandEntity;
 import com.atguigu.mall.product.service.BrandService;
+import com.atguigu.mall.product.vo.SkuItemSaleAttrVo;
+import com.atguigu.mall.product.vo.SkuItemVo;
+import com.atguigu.mall.product.vo.SpuItemAttrGroupVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jdk.internal.util.xml.impl.Input;
 import org.junit.jupiter.api.Test;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootTest
 class MallProductApplicationTests {
+//	@Autowired
+//	BrandService brandService;
+//	@Autowired
+//	StringRedisTemplate stringRedisTemplate;
+//	@Autowired
+//	RedissonClient redissonClient;
+
 	@Autowired
-	BrandService brandService;
+	AttrGroupDao attrGroupDao;
+	@Autowired
+	SkuSaleAttrValueDao skuSaleAttrValueDao;
+	@Test
+	public void test(){
+//		List<SpuItemAttrGroupVo> attrGroupWithAttrsBySpuId = attrGroupDao.getAttrGroupWithAttrsBySpuId(13L, 225L);
+//		System.out.println("result:" + attrGroupWithAttrsBySpuId.toString());
+		List<SkuItemSaleAttrVo> saleAttrsBySpuId = skuSaleAttrValueDao.getSaleAttrsBySpuId(13L);
+		System.out.println("result: " + saleAttrsBySpuId);
+	}
+
+
+
+
+//	@Test
+//	public void testRedisson(){
+//		System.out.println(redissonClient);
+//
+//	}
+
+
+
+
+
+//	@Test
+//	public void testStringRedisTemplate(){
+//		ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+//		// save
+//		ops.set("hello","world_"+ UUID.randomUUID().toString());
+//		 // query
+//		String hello = ops.get("hello");
+//		System.out.println(hello);
+//	}
+
 
 //	@Autowired
 //	OSSClient ossClient;
@@ -52,21 +102,21 @@ class MallProductApplicationTests {
 	}
 
 
-	@Test
-	void contextLoads() {
-//		BrandEntity brandEntity = new BrandEntity();
-//		brandEntity.setName("Huawei");
-//		brandService.save(brandEntity);
-//		System.out.println("Save Successfully...");
-
-//		BrandEntity brandEntity = new BrandEntity();
-//		brandEntity.setBrandId(1L);
-//		brandEntity.setDescript("Google");
-//		brandService.updateById(brandEntity);
-
-		List<BrandEntity> list = brandService.list(new QueryWrapper<BrandEntity>().eq("brand_id", 1L));
-		list.forEach((item)->
-				System.out.println(item)
-		);
-	}
+//	@Test
+//	void contextLoads() {
+////		BrandEntity brandEntity = new BrandEntity();
+////		brandEntity.setName("Huawei");
+////		brandService.save(brandEntity);
+////		System.out.println("Save Successfully...");
+//
+////		BrandEntity brandEntity = new BrandEntity();
+////		brandEntity.setBrandId(1L);
+////		brandEntity.setDescript("Google");
+////		brandService.updateById(brandEntity);
+//
+//		List<BrandEntity> list = brandService.list(new QueryWrapper<BrandEntity>().eq("brand_id", 1L));
+//		list.forEach((item)->
+//				System.out.println(item)
+//		);
+//	}
 }

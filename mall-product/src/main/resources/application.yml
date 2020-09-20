@@ -11,6 +11,13 @@ spring:
   jackson:
     date-format: yyy-MM-dd HH:mm:ss
 
+  thymeleaf:
+    cache: false
+
+  redis:
+    host: 192.168.31.117
+    port: 6379
+
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml  #classpath*:/  引用得依赖classpath都寻找
 

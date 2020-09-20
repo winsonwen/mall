@@ -33,7 +33,6 @@ public class WareSkuController {
     public R getSkusHasStock(@RequestBody List<Long> skuIds) {
 
         List<SkuHasStockVo> vos= wareSkuService.getSkusHasStock(skuIds);
-
         return R.ok().setData(vos);
     }
 

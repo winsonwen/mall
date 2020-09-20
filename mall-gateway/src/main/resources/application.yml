@@ -13,7 +13,7 @@ spring:
         - id: product_route
           uri: lb://mall-product  #lb为负载均衡
           predicates:
-            - Path=/api/product/**
+            - Path=/api/product/**,/hello
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
 
@@ -45,7 +45,30 @@ spring:
           filters:
             - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
 
+        - id: mall_product_host
+          uri: lb://mall-product  #lb为负载均衡
+          predicates:
+            - Host=mall.com, item.mall.com
 
+        - id: mall_search_host
+          uri: lb://mall-search  #lb为负载均衡
+          predicates:
+            - Host=search.mall.com
+
+        - id: mall_auth_host
+          uri: lb://mall-auth-server  #lb为负载均衡
+          predicates:
+            - Host=auth.mall.com
+
+        - id: mall_cart_host
+          uri: lb://mall-cart  #lb为负载均衡
+          predicates:
+            - Host=cart.mall.com
+
+        - id: mall_order_host
+          uri: lb://mall-order  #lb为负载均衡
+          predicates:
+            - Host=order.mall.com
 
 ##指定一个规则：
 ##    前端项目，都带上前缀 /api
